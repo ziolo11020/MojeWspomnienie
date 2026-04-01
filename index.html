@@ -15,22 +15,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
-
-    .card {
-      max-width: 520px;
-      margin: 20px;
-      padding: 28px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      text-align: center;
-    }
-
-    h1 { margin-top: 0; font-size: 2rem; }
-    p { line-height: 1.6; opacity: 0.95; }
 
     .overlay {
       position: fixed;
@@ -60,21 +45,35 @@
       font-weight: bold;
     }
 
-    .modal-body { padding: 24px 20px; }
-
-    .warning { font-size: 3rem; margin-bottom: 10px; }
-
-    .joke {
-      display: none;
-      font-size: 1.4rem;
-      margin-top: 10px;
-      color: #00ffcc;
-      font-weight: bold;
+    .modal-body {
+      padding: 24px 20px;
+      text-align: center;
     }
 
-    .countdown {
-      margin-top: 10px;
-      opacity: 0.8;
+    .warning {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .joke-screen {
+      display: none;
+      text-align: center;
+    }
+
+    .joke-screen h1 {
+      font-size: 2.5rem;
+      color: #00ffcc;
+    }
+
+    button {
+      margin-top: 20px;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #ff4d4d;
+      color: white;
     }
   </style>
 </head>
@@ -87,42 +86,22 @@
       <div class="warning">🚨</div>
       <strong>Polecam sprawdzić konto bankowe.</strong>
       <p>Wykryto podejrzaną aktywność.</p>
-
-      <div class="countdown" id="countdown">Nie możesz zamknąć strony przez 10s...</div>
-      <div class="joke" id="joke">Prima Aprilis 😄</div>
+      <button onclick="showJoke()">OK</button>
     </div>
   </div>
 </div>
 
+<div class="joke-screen" id="joke">
+  <h1>Prima Aprilis 😄</h1>
+  <p>To tylko żart! Następnym razem uważaj w co klikasz 😉</p>
+</div>
+
 <script>
-  let seconds = 10;
-
-  // blokada zamykania (na ile się da w przeglądarce)
-  window.onbeforeunload = function () {
-    if (seconds > 0) {
-      return "Na pewno chcesz zamknąć?";
-    }
-  };
-
-  const countdownEl = document.getElementById('countdown');
-  const jokeEl = document.getElementById('joke');
-
-  let jokeShown = false;
-
-  const interval = setInterval(() => {
-    seconds--;
-    countdownEl.textContent = `Nie możesz zamknąć strony przez ${seconds}s...`;
-
-    if (seconds <= 5 && !jokeShown) {
-      jokeEl.style.display = 'block';
-      jokeShown = true;
-    }
-
-    if (seconds <= 0) {
-      clearInterval(interval);
-      countdownEl.textContent = "Możesz już zamknąć 😄";
-    }
-  }, 1000);
+  function showJoke() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('joke').style.display = 'block';
+    document.title = 'Prima Aprilis 😄';
+  }
 
   // pierwszy straszak
   setTimeout(() => {
