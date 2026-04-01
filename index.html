@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ważny komunikat</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #101522, #1d263b);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      max-width: 520px;
+      margin: 20px;
+      padding: 28px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    p {
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .hint {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      opacity: 0.75;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 480px;
+      background: #1f1f1f;
+      border: 2px solid #ff4d4d;
+      border-radius: 18px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+      overflow: hidden;
+      animation: shakeIn 0.35s ease;
+    }
+
+    .modal-header {
+      background: #b30000;
+      padding: 16px 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .modal-body {
+      padding: 24px 20px 14px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .warning {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .modal-footer {
+      padding: 16px 20px 22px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    .primary {
+      background: #ff4d4d;
+      color: white;
+      font-weight: bold;
+    }
+
+    .secondary {
+      background: #3b3b3b;
+      color: white;
+    }
+
+    .reveal {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      background: rgba(0, 255, 170, 0.12);
+      border: 1px solid rgba(0, 255, 170, 0.35);
+      border-radius: 14px;
+      color: #d8fff4;
+    }
+
+    @keyframes shakeIn {
+      0%   { transform: scale(0.95) translateY(8px); opacity: 0; }
+      60%  { transform: scale(1.02) translateY(0); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ważny komunikat</h1>
+    <p>Trwa sprawdzanie bezpieczeństwa połączenia...</p>
+    <p class="hint">Nie zamykaj tej strony.</p>
+
+    <div id="reveal" class="reveal">
+      <strong>Prima aprilis 😄</strong><br />
+      To tylko żart i mała nauczka: nie klikaj w podejrzane linki.
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="title">
+      <div class="modal-header" id="title">⚠️ Ostrzeżenie bezpieczeństwa</div>
+      <div class="modal-body">
+        <div class="warning">🚨</div>
+        <strong>Polecam sprawdzić konto bankowe.</strong>
+        <p style="margin-bottom: 0; opacity: 0.9;">
+          Wykryto podejrzaną aktywność. Zachowaj ostrożność i nie klikaj w dziwne linki.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="primary" onclick="showJoke()">Okej...</button>
+        <button class="secondary" onclick="showJoke()">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showJoke() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('reveal').style.display = 'block';
+      document.querySelector('.hint').textContent = 'I właśnie o to chodziło 😄';
+      document.title = 'Prima aprilis 😄';
+    }
+
+    // Opcjonalnie pokaż systemowy alert przy wejściu
+    setTimeout(() => {
+      alert('Polecam sprawdzić konto bankowe');
+    }, 250);
+  </script>
+</body>
+</html>
